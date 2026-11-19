@@ -5,8 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\VerifikasiSuratController;
 use App\Http\Controllers\WargaController;
+use App\Models\LampiranPermohonan;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
 
 // --- Publik Kelurahan Notoharjo ---
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -26,14 +26,26 @@ Route::get('/diagram-sistem', function () {
 // --- Verifikasi Keabsahan Surat via QR Code ---
 Route::get('/verifikasi-surat/{token}', [VerifikasiSuratController::class, 'verify'])->name('verifikasi.surat');
 
-// --- Serving File Lampiran Storage (Vercel Serverless Fallback) ---
-Route::get('/storage/{path}', function (string $path) {
-    $disk = Storage::disk('public');
-    if ($disk->exists($path)) {
-        return $disk->response($path);
+// --- Serving File Lampiran dari Database (Vercel Serverless compatible) ---
+Route::get('/berkas/lampiran/{id}', function (int $id) {
+    $lampiran = LampiranPermohonan::findOrFail($id);
+
+    if ($lampiran->file_data) {
+        $content = base64_decode($lampiran->file_data);
+        $mime = $lampiran->mime_type ?: 'application/octet-stream';
+
+        return response($content, 200)
+            ->header('Content-Type', $mime)
+            ->header('Content-Disposition', 'inline; filename="'.addslashes($lampiran->nama_file).'"');
     }
-    abort(404);
-})->where('path', '.*')->name('storage.file');
+
+    // Fallback: coba dari disk storage
+    if (Storage::disk('public')->exists($lampiran->file_path)) {
+        return Storage::disk('public')->response($lampiran->file_path);
+    }
+
+    abort(404, 'File tidak ditemukan.');
+})->middleware('auth')->name('lampiran.show');
 
 // --- Autentikasi Pengguna ---
 Route::middleware('guest')->group(function (): void {

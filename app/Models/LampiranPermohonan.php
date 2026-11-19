@@ -16,6 +16,8 @@ class LampiranPermohonan extends Model
         'id_syarat_surat',
         'nama_file',
         'file_path',
+        'file_data',
+        'mime_type',
         'status_validasi',
         'catatan',
     ];

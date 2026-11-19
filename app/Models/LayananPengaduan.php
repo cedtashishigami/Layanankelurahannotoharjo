@@ -18,6 +18,8 @@ class LayananPengaduan extends Model
         'kategori',
         'isi_laporan',
         'foto_bukti',
+        'foto_data',
+        'foto_mime',
         'status',
         'tanggapan_petugas',
         'tanggal_tanggapan',

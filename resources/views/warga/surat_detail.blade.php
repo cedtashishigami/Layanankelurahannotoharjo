@@ -98,9 +98,9 @@
             <div class="space-y-3">
                 @forelse($permohonan->lampiranPermohonan as $lampiran)
                     @php
-                        $ext = strtolower(pathinfo($lampiran->file_path, PATHINFO_EXTENSION));
-                        $isImg = in_array($ext, ['jpg', 'jpeg', 'png', 'webp', 'svg']);
-                        $fileUrl = asset('storage/' . $lampiran->file_path);
+                        $ext = strtolower(pathinfo($lampiran->nama_file, PATHINFO_EXTENSION));
+                        $isImg = in_array($ext, ['jpg', 'jpeg', 'png', 'webp', 'svg', 'heic']);
+                        $fileUrl = route('lampiran.show', $lampiran->id_lampiran);
                     @endphp
                     <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-between text-xs gap-3">
                         <div class="flex items-center space-x-3 truncate">

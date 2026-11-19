@@ -14,7 +14,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -104,34 +103,24 @@ class WargaController extends Controller
             'token_qr' => $tokenQr,
         ]);
 
-        // Simpan file berkas lampiran
+        // Simpan file berkas lampiran (base64 ke DB untuk kompatibilitas Vercel serverless)
         if ($request->hasFile('lampiran')) {
             foreach ($request->file('lampiran') as $idSyarat => $file) {
                 if ($file && $file->isValid()) {
-                    try {
-                        $extension = $file->getClientOriginalExtension() ?: 'jpg';
-                        $filename = time().'_'.$idSyarat.'_'.Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)).'.'.$extension;
-                        $path = $file->storeAs('lampiran_surat', $filename, 'public');
+                    $extension = strtolower($file->getClientOriginalExtension() ?: 'jpg');
+                    $filename = time().'_'.$idSyarat.'_'.Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)).'.'.$extension;
+                    $mimeType = $file->getMimeType() ?: 'application/octet-stream';
+                    $fileData = base64_encode($file->getContent());
 
-                        LampiranPermohonan::create([
-                            'id_permohonan_surat' => $permohonan->id_permohonan_surat,
-                            'id_syarat_surat' => $idSyarat,
-                            'nama_file' => $file->getClientOriginalName(),
-                            'file_path' => $path ?: ('lampiran_surat/'.$filename),
-                            'status_validasi' => 'menunggu',
-                        ]);
-                    } catch (\Throwable $e) {
-                        Log::warning('Gagal menyimpan file lampiran: '.$e->getMessage());
-
-                        // Tetap catat lampiran agar proses pengajuan surat tidak gagal
-                        LampiranPermohonan::create([
-                            'id_permohonan_surat' => $permohonan->id_permohonan_surat,
-                            'id_syarat_surat' => $idSyarat,
-                            'nama_file' => $file->getClientOriginalName(),
-                            'file_path' => 'lampiran_surat/'.$file->getClientOriginalName(),
-                            'status_validasi' => 'menunggu',
-                        ]);
-                    }
+                    LampiranPermohonan::create([
+                        'id_permohonan_surat' => $permohonan->id_permohonan_surat,
+                        'id_syarat_surat' => $idSyarat,
+                        'nama_file' => $file->getClientOriginalName(),
+                        'file_path' => 'lampiran_surat/'.$filename,
+                        'file_data' => $fileData,
+                        'mime_type' => $mimeType,
+                        'status_validasi' => 'menunggu',
+                    ]);
                 }
             }
         }
@@ -195,13 +184,13 @@ class WargaController extends Controller
         ]);
 
         $fotoPath = null;
+        $fotoData = null;
+        $fotoMime = null;
         if ($request->hasFile('foto_bukti')) {
-            try {
-                $fotoPath = $request->file('foto_bukti')->store('pengaduan', 'public');
-            } catch (\Throwable $e) {
-                Log::warning('Gagal upload foto pengaduan: '.$e->getMessage());
-                $fotoPath = 'pengaduan/'.$request->file('foto_bukti')->getClientOriginalName();
-            }
+            $file = $request->file('foto_bukti');
+            $fotoPath = 'pengaduan/'.$file->getClientOriginalName();
+            $fotoData = base64_encode($file->getContent());
+            $fotoMime = $file->getMimeType() ?: 'image/jpeg';
         }
 
         LayananPengaduan::create([
@@ -211,6 +200,8 @@ class WargaController extends Controller
             'kategori' => $validated['kategori'],
             'isi_laporan' => $validated['isi_laporan'],
             'foto_bukti' => $fotoPath,
+            'foto_data' => $fotoData,
+            'foto_mime' => $fotoMime,
             'status' => 'diajukan',
         ]);
 
