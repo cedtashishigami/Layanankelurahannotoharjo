@@ -47,7 +47,8 @@
             background-image: url('/kantor-notoharjo.jpg');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
+            /* background-attachment: scroll agar kompatibel iOS Safari */
+            background-attachment: scroll;
         }
 
         .pattern-dots::before {
@@ -123,7 +124,7 @@
     </style>
 </head>
 
-<body class="min-h-screen bg-pattern pattern-dots relative overflow-hidden flex items-center justify-center p-4">
+<body class="min-h-screen bg-pattern pattern-dots relative flex items-start justify-center p-4 py-6 sm:items-center sm:py-4">
 
     <!-- Decorative Circles -->
     <div class="decorative-circle-1"></div>
@@ -131,7 +132,7 @@
     <div class="decorative-circle-3"></div>
 
     <!-- Main Container -->
-    <div class="relative z-10 w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-0 shadow-2xl rounded-3xl overflow-hidden min-h-[600px]">
+    <div class="relative z-10 w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-0 shadow-2xl rounded-3xl overflow-hidden">
 
         <!-- === LEFT PANEL: Branding === -->
         <div class="relative flex flex-col items-center justify-center p-10 text-white text-center space-y-6 hidden lg:flex overflow-hidden"
@@ -196,16 +197,18 @@
         </div>
 
         <!-- === RIGHT PANEL: Login Form === -->
-        <div class="card-glass flex flex-col justify-center p-8 sm:p-10 space-y-6">
+        <div class="card-glass flex flex-col justify-center p-6 sm:p-8 lg:p-10 space-y-5">
 
             <!-- Mobile logo (shown only on small screens) -->
-            <div class="flex lg:hidden items-center space-x-3 mb-2">
-                <img src="{{ asset('logo-lampung-tengah.png') }}"
-                     alt="Logo Kelurahan Notoharjo"
-                     class="w-12 h-12 object-contain">
+            <div class="flex lg:hidden items-center space-x-3 pb-2 border-b border-slate-100">
+                <div class="w-11 h-11 rounded-xl bg-primary-700 flex items-center justify-center shrink-0 p-1.5 shadow">
+                    <img src="{{ asset('logo-lampung-tengah.png') }}"
+                         alt="Logo Kelurahan Notoharjo"
+                         class="w-full h-full object-contain">
+                </div>
                 <div>
-                    <p class="text-xs font-bold text-primary-700 uppercase tracking-wide">Kelurahan Notoharjo</p>
-                    <p class="text-[10px] text-slate-500">Kec. Trimurjo · Lampung Tengah</p>
+                    <p class="text-xs font-black text-primary-800 uppercase tracking-wide">Kelurahan Notoharjo</p>
+                    <p class="text-[10px] text-slate-500">Kec. Trimurjo · Kab. Lampung Tengah</p>
                 </div>
             </div>
 
