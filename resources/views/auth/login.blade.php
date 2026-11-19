@@ -44,19 +44,17 @@
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
 
         .bg-pattern {
-            background-color: #14532d;
-            background-image:
-                radial-gradient(circle at 20% 50%, rgba(22,163,74,0.4) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(21,128,61,0.3) 0%, transparent 40%),
-                radial-gradient(circle at 60% 80%, rgba(20,83,45,0.5) 0%, transparent 40%);
+            background-image: url('/kantor-notoharjo.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
 
         .pattern-dots::before {
             content: '';
             position: absolute;
             inset: 0;
-            background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
-            background-size: 24px 24px;
+            background: rgba(10, 50, 20, 0.55);
             pointer-events: none;
         }
 
@@ -136,10 +134,9 @@
     <div class="relative z-10 w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-0 shadow-2xl rounded-3xl overflow-hidden min-h-[600px]">
 
         <!-- === LEFT PANEL: Branding === -->
-        <div class="relative flex flex-col items-center justify-center p-10 text-white text-center space-y-6 hidden lg:flex overflow-hidden"
-             style="background: url('{{ asset('kantor-notoharjo.jpg') }}') center center / cover no-repeat;">
-            <!-- Dark overlay agar teks tetap terbaca -->
-            <div class="absolute inset-0 bg-gradient-to-br from-primary-900/80 via-primary-800/70 to-slate-900/80"></div>
+        <div class="relative bg-gradient-to-br from-primary-800 via-primary-900 to-slate-900 flex flex-col items-center justify-center p-10 text-white text-center space-y-6 hidden lg:flex">
+            <!-- Subtle inner pattern -->
+            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(rgba(255,255,255,0.3) 1px, transparent 1px); background-size: 20px 20px;"></div>
 
             <!-- Yellow top accent bar -->
             <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400"></div>
