@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\VerifikasiSuratController;
 use App\Http\Controllers\WargaController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 // --- Publik Kelurahan Notoharjo ---
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -24,6 +25,15 @@ Route::get('/diagram-sistem', function () {
 
 // --- Verifikasi Keabsahan Surat via QR Code ---
 Route::get('/verifikasi-surat/{token}', [VerifikasiSuratController::class, 'verify'])->name('verifikasi.surat');
+
+// --- Serving File Lampiran Storage (Vercel Serverless Fallback) ---
+Route::get('/storage/{path}', function (string $path) {
+    $disk = Storage::disk('public');
+    if ($disk->exists($path)) {
+        return $disk->response($path);
+    }
+    abort(404);
+})->where('path', '.*')->name('storage.file');
 
 // --- Autentikasi Pengguna ---
 Route::middleware('guest')->group(function (): void {

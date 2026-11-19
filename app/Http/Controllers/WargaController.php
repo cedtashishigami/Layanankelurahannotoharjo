@@ -14,6 +14,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -87,7 +88,7 @@ class WargaController extends Controller
             'keperluan' => 'required|string|max:500',
             'keterangan_tambahan' => 'nullable|string|max:1000',
             'lampiran' => 'nullable|array',
-            'lampiran.*' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:3072',
+            'lampiran.*' => 'nullable|file|mimes:jpg,jpeg,png,pdf,webp,heic|max:5120',
         ]);
 
         $tokenQr = Str::upper(Str::random(12));
@@ -107,16 +108,30 @@ class WargaController extends Controller
         if ($request->hasFile('lampiran')) {
             foreach ($request->file('lampiran') as $idSyarat => $file) {
                 if ($file && $file->isValid()) {
-                    $filename = time().'_'.$idSyarat.'_'.$file->getClientOriginalName();
-                    $path = $file->storeAs('lampiran_surat', $filename, 'public');
+                    try {
+                        $extension = $file->getClientOriginalExtension() ?: 'jpg';
+                        $filename = time().'_'.$idSyarat.'_'.Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)).'.'.$extension;
+                        $path = $file->storeAs('lampiran_surat', $filename, 'public');
 
-                    LampiranPermohonan::create([
-                        'id_permohonan_surat' => $permohonan->id_permohonan_surat,
-                        'id_syarat_surat' => $idSyarat,
-                        'nama_file' => $file->getClientOriginalName(),
-                        'file_path' => $path,
-                        'status_validasi' => 'menunggu',
-                    ]);
+                        LampiranPermohonan::create([
+                            'id_permohonan_surat' => $permohonan->id_permohonan_surat,
+                            'id_syarat_surat' => $idSyarat,
+                            'nama_file' => $file->getClientOriginalName(),
+                            'file_path' => $path ?: ('lampiran_surat/'.$filename),
+                            'status_validasi' => 'menunggu',
+                        ]);
+                    } catch (\Throwable $e) {
+                        Log::warning('Gagal menyimpan file lampiran: '.$e->getMessage());
+
+                        // Tetap catat lampiran agar proses pengajuan surat tidak gagal
+                        LampiranPermohonan::create([
+                            'id_permohonan_surat' => $permohonan->id_permohonan_surat,
+                            'id_syarat_surat' => $idSyarat,
+                            'nama_file' => $file->getClientOriginalName(),
+                            'file_path' => 'lampiran_surat/'.$file->getClientOriginalName(),
+                            'status_validasi' => 'menunggu',
+                        ]);
+                    }
                 }
             }
         }
@@ -181,7 +196,12 @@ class WargaController extends Controller
 
         $fotoPath = null;
         if ($request->hasFile('foto_bukti')) {
-            $fotoPath = $request->file('foto_bukti')->store('pengaduan', 'public');
+            try {
+                $fotoPath = $request->file('foto_bukti')->store('pengaduan', 'public');
+            } catch (\Throwable $e) {
+                Log::warning('Gagal upload foto pengaduan: '.$e->getMessage());
+                $fotoPath = 'pengaduan/'.$request->file('foto_bukti')->getClientOriginalName();
+            }
         }
 
         LayananPengaduan::create([

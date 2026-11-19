@@ -28,10 +28,6 @@
             "dest": "/public/images/$1"
         },
         {
-            "src": "/storage/(.*)",
-            "dest": "/public/storage/$1"
-        },
-        {
             "src": "/(.*\\.(ico|png|jpg|jpeg|webp|heic|svg|css|js|woff2?|ttf|otf|eot|map|txt|pdf))",
             "dest": "/public/$1"
         },
@@ -49,7 +45,6 @@
         "APP_ROUTES_CACHE": "/tmp/routes.php",
         "APP_SERVICES_CACHE": "/tmp/services.php",
         "VIEW_COMPILED_PATH": "/tmp",
-        "SESSION_DRIVER": "cookie",
         "CACHE_STORE": "array"
     }
 }

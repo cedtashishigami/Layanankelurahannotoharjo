@@ -32,7 +32,19 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app/private'),
+            'root' => (function () {
+                $default = storage_path('app/private');
+                if (! @is_writable(storage_path()) || ! @is_writable(dirname(storage_path()))) {
+                    $tmp = sys_get_temp_dir().'/storage/private';
+                    if (! file_exists($tmp)) {
+                        @mkdir($tmp, 0777, true);
+                    }
+
+                    return $tmp;
+                }
+
+                return $default;
+            })(),
             'serve' => true,
             'throw' => false,
             'report' => false,
@@ -40,7 +52,19 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
+            'root' => (function () {
+                $default = storage_path('app/public');
+                if (! @is_writable(storage_path()) || ! @is_writable(dirname(storage_path()))) {
+                    $tmp = sys_get_temp_dir().'/storage/public';
+                    if (! file_exists($tmp)) {
+                        @mkdir($tmp, 0777, true);
+                    }
+
+                    return $tmp;
+                }
+
+                return $default;
+            })(),
             'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
             'visibility' => 'public',
             'throw' => false,
