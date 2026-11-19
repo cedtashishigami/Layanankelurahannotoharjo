@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentasi Diagram Rekayasa Sistem - Kelurahan Notoharjo</title>
+    <link rel="icon" type="image/png" href="logo-lampung-tengah.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts & Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <!-- Mermaid.js -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' },
+            er: { useMaxWidth: true }
+        });
+    </script>
+
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
+        .mermaid { background: white; border-radius: 1rem; padding: 1.5rem; overflow-x: auto; }
+        @media print {
+            .no-print { display: none !important; }
+            .page-break { page-break-before: always; }
+            body { background: white !important; }
+            .shadow-sm, .shadow-md, .shadow-xl { box-shadow: none !important; }
+            .border { border-color: #cbd5e1 !important; }
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased selection:bg-emerald-100 selection:text-emerald-900">
+
+    <!-- Top Sticky Header -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3.5">
+                <img src="logo-lampung-tengah.png" alt="Logo Lampung Tengah" class="w-12 h-12 object-contain drop-shadow">
+                <div>
+                    <h1 class="text-base font-extrabold text-slate-900 tracking-tight leading-tight">DOKUMENTASI REKAYASA PERANGKAT LUNAK</h1>
+                    <p class="text-xs text-slate-500 font-medium">Sistem Informasi & Pelayanan Administrasi Kelurahan Notoharjo</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button onclick="window.print()" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition flex items-center space-x-2 shadow-sm">
+                    <i class="fa-solid fa-print"></i>
+                    <span>Cetak / PDF</span>
+                </button>
+                <a href="/" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition flex items-center space-x-2 shadow-sm shadow-emerald-200">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Kembali ke Web</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero / Metadata Banner -->
+    <div class="bg-gradient-to-br from-emerald-900 via-emerald-800 to-slate-900 text-white py-12 px-4 sm:px-6 lg:px-8 border-b border-emerald-950">
+        <div class="max-w-7xl mx-auto space-y-4">
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-semibold uppercase tracking-wider">
+                <i class="fa-solid fa-diagram-project"></i>
+                <span>Arsitektur Sistem Terpadu (SDLC & 3NF Normalization)</span>
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-black tracking-tight leading-tight">
+                Diagram Rekayasa Sistem: ERD, Use Case, Activity, & Flowchart
+            </h2>
+            <p class="text-emerald-100/90 text-sm sm:text-base max-w-4xl leading-relaxed">
+                Dokumentasi lengkap pemodelan data ter-normalisasi (1NF sampai 3NF) dengan Primary Key eksplisit (<code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-emerald-300">id_&lt;nama_tabel&gt;</code>), alur perizinan surat 3 jenjang otorisasi (Kasi Pelayanan &rarr; Sekretaris &rarr; Lurah), validasi QR Code digital, dan manajemen kependudukan.
+            </p>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 text-xs">
+                <div class="p-3 bg-white/10 rounded-xl backdrop-blur border border-white/10">
+                    <span class="text-emerald-300 block font-semibold text-[11px]">Metode Penelitian</span>
+                    <strong class="text-white text-sm">Waterfall SDLC</strong>
+                </div>
+                <div class="p-3 bg-white/10 rounded-xl backdrop-blur border border-white/10">
+                    <span class="text-emerald-300 block font-semibold text-[11px]">Normalisasi Data</span>
+                    <strong class="text-white text-sm">1NF - 3NF (21 Tabel)</strong>
+                </div>
+                <div class="p-3 bg-white/10 rounded-xl backdrop-blur border border-white/10">
+                    <span class="text-emerald-300 block font-semibold text-[11px]">Primary Key Standard</span>
+                    <strong class="text-white text-sm font-mono">id_&lt;tabel&gt; (Explicit)</strong>
+                </div>
+                <div class="p-3 bg-white/10 rounded-xl backdrop-blur border border-white/10">
+                    <span class="text-emerald-300 block font-semibold text-[11px]">Otorisasi Surat</span>
+                    <strong class="text-white text-sm">3 Jenjang + QR Verify</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Navigation (In-page anchor) -->
+    <nav class="bg-white border-b border-slate-200 sticky top-20 z-40 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-auto">
+            <div class="flex space-x-1 py-3 text-xs font-bold text-slate-600 whitespace-nowrap">
+                <a href="#erd" class="px-3.5 py-1.5 hover:bg-slate-100 hover:text-emerald-700 rounded-lg transition flex items-center space-x-1.5">
+                    <i class="fa-solid fa-database text-emerald-600"></i>
+                    <span>1. ERD (21 Tabel)</span>
+                </a>
+                <a href="#usecase" class="px-3.5 py-1.5 hover:bg-slate-100 hover:text-emerald-700 rounded-lg transition flex items-center space-x-1.5">
+                    <i class="fa-solid fa-users text-emerald-600"></i>
+                    <span>2. Use Case Diagram</span>
+                </a>
+                <a href="#activity" class="px-3.5 py-1.5 hover:bg-slate-100 hover:text-emerald-700 rounded-lg transition flex items-center space-x-1.5">
+                    <i class="fa-solid fa-network-wired text-emerald-600"></i>
+                    <span>3. Activity Diagrams</span>
+                </a>
+                <a href="#flowchart" class="px-3.5 py-1.5 hover:bg-slate-100 hover:text-emerald-700 rounded-lg transition flex items-center space-x-1.5">
+                    <i class="fa-solid fa-arrow-progress text-emerald-600"></i>
+                    <span>4. Flowcharts Sistem</span>
+                </a>
+                <a href="#sequence" class="px-3.5 py-1.5 hover:bg-slate-100 hover:text-emerald-700 rounded-lg transition flex items-center space-x-1.5">
+                    <i class="fa-solid fa-clock-rotate-left text-emerald-600"></i>
+                    <span>5. Sequence Diagram</span>
+                </a>
+                <a href="#statemachine" class="px-3.5 py-1.5 hover:bg-slate-100 hover:text-emerald-700 rounded-lg transition flex items-center space-x-1.5">
+                    <i class="fa-solid fa-traffic-light text-emerald-600"></i>
+                    <span>6. State Machine Diagram</span>
+                </a>
+                <a href="#kamusdata" class="px-3.5 py-1.5 hover:bg-slate-100 hover:text-emerald-700 rounded-lg transition flex items-center space-x-1.5">
+                    <i class="fa-solid fa-table-list text-emerald-600"></i>
+                    <span>7. Kamus Data & PK</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Body -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
+
+        <!-- ========================================== -->
+        <!-- SECTION 1: ENTITY RELATIONSHIP DIAGRAM -->
+        <!-- ========================================== -->
+        <section id="erd" class="space-y-6 scroll-mt-36">
+            <div class="border-b border-slate-200 pb-4">
+                <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest block mb-1">Database Architecture</span>
+                <h3 class="text-2xl font-black text-slate-900 tracking-tight flex items-center space-x-2">
+                    <i class="fa-solid fa-database text-emerald-600"></i>
+                    <span>1. Entity Relationship Diagram (ERD) Normalisasi 1NF - 3NF</span>
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-600 mt-1">
+                    Seluruh 21 tabel menerapkan Primary Key eksplisit berformat <code class="bg-slate-100 px-1 py-0.5 rounded font-mono font-bold text-emerald-700">id_&lt;nama_tabel&gt;</code> dengan integritas referensial Foreign Key ter-indeks.
+                </p>
+            </div>
+
+            <!-- ERD Diagram Mermaid Visual -->
+            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+                <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                    <h4 class="font-bold text-slate-900 text-sm">Diagram ERD Konseptual & Fisik (Crow's Foot Notation)</h4>
+                    <span class="text-[11px] font-mono bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-lg font-bold">21 Entities • Full Relational</span>
+                </div>
+                
+                <div class="mermaid">
+erDiagram
+    %% WILAYAH & REFERENSI
+    wilayah_dusun ||--o{ wilayah_rt : "memiliki"
+    wilayah_dusun ||--o{ users : "domisili_kadus"
+    wilayah_dusun ||--o{ potensi_kelurahan : "lokasi_potensi"
+    wilayah_dusun ||--o{ layanan_pengaduan : "lokasi_aduan"
+    wilayah_rt ||--o{ kartu_keluarga : "mencakup"
+    pendidikan ||--o{ penduduk : "tingkat_pendidikan"
+    pekerjaan ||--o{ penduduk : "mata_pencaharian"
+
+    %% KEPENDUDUKAN & KELUARGA
+    kartu_keluarga ||--o{ penduduk : "terdiri_dari"
+    penduduk ||--o| users : "terhubung_akun"
+    penduduk ||--o{ mutasi_penduduk : "mengalami_peristiwa"
+    penduduk ||--o{ permohonan_surat : "subjek_surat"
+
+    %% USERS & OTORISASI
+    users ||--o{ mutasi_penduduk : "dicatat_oleh"
+    users ||--o{ permohonan_surat : "diajukan_oleh_pemohon"
+    users ||--o{ riwayat_status_surat : "diproses_oleh"
+    users ||--o{ surat_masuk : "diterima_oleh"
+    users ||--o{ potensi_kelurahan : "dikelola_oleh"
+    users ||--o{ transparansi_anggaran : "diinput_oleh"
+    users ||--o{ berita : "ditulis_oleh"
+    users ||--o{ agenda : "dijadwalkan_oleh"
+    users ||--o{ galeri : "diunggah_oleh"
+    users ||--o{ layanan_pengaduan : "dilaporkan_oleh"
+    users ||--o{ notifikasi : "menerima_notif"
+
+    %% PERSURATAN & TRACKING
+    kode_surat ||--o{ syarat_surat : "memiliki_persyaratan"
+    kode_surat ||--o{ permohonan_surat : "jenis_permohonan"
+    permohonan_surat ||--o{ lampiran_permohonan : "melampirkan_berkas"
+    syarat_surat ||--o{ lampiran_permohonan : "tipe_dokumen"
+    permohonan_surat ||--o{ riwayat_status_surat : "merekam_jejak_status"
+
+    %% TABEL & ATTRIBUTE DENGAN PRIMARY KEY EKSPLISIT
+    wilayah_dusun {
+        int id_dusun PK
+        string nama_dusun
+        string nama_kadus
+        string kontak_kadus
+        string keterangan
+    }
+
+    wilayah_rt {
+        int id_rt PK
+        int id_dusun FK
+        string nomor_rt
+        string nama_ketua_rt
+        string kontak_rt
+    }
+
+    pendidikan {
+        int id_pendidikan PK
+        string nama_pendidikan
+    }
+
+    pekerjaan {
+        int id_pekerjaan PK
+        string nama_pekerjaan
+    }
+
+    kartu_keluarga {
+        int id_kartu_keluarga PK
+        int id_rt FK
+        string nomor_kk
+        string nama_kepala_keluarga
+        string alamat_lengkap
+        string kode_pos
+    }
+
+    penduduk {
+        int id_penduduk PK
+        int id_kartu_keluarga FK
+        int id_pendidikan FK
+        int id_pekerjaan FK
+        string nik
+        string nama_lengkap
+        string tempat_lahir
+        date tanggal_lahir
+        string jenis_kelamin
+        string golongan_darah
+        string agama
+        string status_perkawinan
+        string status_hubungan_dalam_keluarga
+        string nama_ayah
+        string nama_ibu
+        string status_keberadaan
+        string foto
+    }
+
+    users {
+        int id_user PK
+        int id_penduduk FK
+        int id_dusun FK
+        string name
+        string email
+        string password
+        string role
+        string jabatan
+        string no_hp
+        boolean is_active
+    }
+
+    mutasi_penduduk {
+        int id_mutasi PK
+        int id_penduduk FK
+        int id_user FK
+        string jenis_mutasi
+        date tanggal_kejadian
+        string nomor_surat_keterangan
+        string alasan_tujuan
+        string keterangan
+    }
+
+    kode_surat {
+        int id_kode_surat PK
+        string kode_klasifikasi
+        string nama_surat
+        int masa_berlaku_hari
+        string keterangan
+    }
+
+    syarat_surat {
+        int id_syarat_surat PK
+        int id_kode_surat FK
+        string nama_syarat
+        boolean wajib
+        string keterangan
+    }
+
+    permohonan_surat {
+        int id_permohonan_surat PK
+        int id_pemohon FK
+        int id_penduduk FK
+        int id_kode_surat FK
+        int id_kasi_verifikator FK
+        int id_sekretaris FK
+        int id_lurah FK
+        string nomor_surat
+        string keperluan
+        string status
+        string token_qr
+        datetime tanggal_pengajuan
+        datetime tanggal_selesai
+    }
+
+    lampiran_permohonan {
+        int id_lampiran PK
+        int id_permohonan_surat FK
+        int id_syarat_surat FK
+        string nama_file
+        string path_file
+        string status_validasi
+    }
+
+    riwayat_status_surat {
+        int id_riwayat_surat PK
+        int id_permohonan_surat FK
+        int id_user FK
+        string status
+        string catatan
+    }
+
+    surat_masuk {
+        int id_surat_masuk PK
+        int id_user_penerima FK
+        string nomor_surat_asal
+        string pengirim
+        string perihal
+        date tanggal_surat
+        date tanggal_diterima
+        string file_arsip
+    }
+
+    potensi_kelurahan {
+        int id_potensi PK
+        int id_dusun FK
+        int id_user FK
+        string nama_potensi
+        string kategori
+        string pemilik
+        string kontak
+        string lokasi
+    }
+
+    transparansi_anggaran {
+        int id_anggaran PK
+        int id_user FK
+        year tahun_anggaran
+        string jenis
+        string bidang
+        string uraian
+        decimal target_anggaran
+        decimal realisasi_anggaran
+    }
+
+    berita {
+        int id_berita PK
+        int id_user FK
+        string judul
+        string slug
+        string ringkasan
+        text isi_berita
+        string status
+        int views
+    }
+
+    agenda {
+        int id_agenda PK
+        int id_user FK
+        string nama_kegiatan
+        string lokasi
+        datetime tanggal_mulai
+        string penyelenggara
+    }
+
+    galeri {
+        int id_galeri PK
+        int id_user FK
+        string judul
+        string file_media
+        string jenis_media
+        string keterangan
+    }
+
+    layanan_pengaduan {
+        int id_pengaduan PK
+        int id_pelapor FK
+        int id_dusun FK
+        string judul_laporan
+        text isi_laporan
+        string kategori
+        string status
+        text tanggapan_petugas
+        datetime tanggal_tanggapan
+    }
+
+    notifikasi {
+        int id_notifikasi PK
+        int id_user FK
+        string judul
+        string pesan
+        string link
+        boolean dibaca
+    }
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- SECTION 2: USE CASE DIAGRAM -->
+        <!-- ========================================== -->
+        <section id="usecase" class="space-y-6 scroll-mt-36 page-break">
+            <div class="border-b border-slate-200 pb-4">
+                <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest block mb-1">Functional Modeling</span>
+                <h3 class="text-2xl font-black text-slate-900 tracking-tight flex items-center space-x-2">
+                    <i class="fa-solid fa-users text-emerald-600"></i>
+                    <span>2. Use Case Diagram Sistem Pelayanan Kelurahan</span>
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-600 mt-1">
+                    Menggambarkan interaksi 5 (lima) peran pengguna: Warga / Pemohon, Kasi Pelayanan, Sekretaris Kelurahan, Lurah, dan Administrator.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+                <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                    <h4 class="font-bold text-slate-900 text-sm">Visual Use Case Diagram (UML Standard)</h4>
+                    <span class="text-[11px] font-mono bg-sky-50 text-sky-700 px-2.5 py-1 rounded-lg font-bold">5 Actors • 16 Use Cases</span>
+                </div>
+
+                <div class="mermaid">
+flowchart LR
+    %% Actors
+    Warga["fa:fa-user Warga / Pemohon"]
+    Kasi["fa:fa-user-gear Kasi Pelayanan"]
+    Sekdes["fa:fa-user-pen Sekretaris Kelurahan"]
+    Lurah["fa:fa-user-tie Kepala Kelurahan (Lurah)"]
+    Admin["fa:fa-user-shield Administrator"]
+
+    subgraph Boundaries ["Sistem Informasi & Pelayanan Administrasi Kelurahan Notoharjo"]
+        UC1(["Registrasi & Verifikasi NIK"])
+        UC2(["Login Multi-Aktor (NIK / Email)"])
+        UC3(["Pengajuan Surat Mandiri"])
+        UC4(["Upload Dokumen Persyaratan"])
+        UC5(["Lacak Status Surat Realtime"])
+        UC6(["Pindai Verifikasi QR Code Surat"])
+        UC7(["Verifikasi Berkas Permohonan"])
+        UC8(["Paraf & Penomoran Surat Resmi"])
+        UC9(["Tanda Tangan Elektronik / Pengesahan Digital"])
+        UC10(["Cetak Dokumen Surat Berkepala & QR"])
+        UC11(["Pencatatan Mutasi Penduduk (Lahir/Mati/Pindah)"])
+        UC12(["Manajemen Data Kependudukan & KK"])
+        UC13(["Pengelolaan Aduan & Aspirasi"])
+        UC14(["Publikasi Potensi & Pasar Welit"])
+        UC15(["Pengelolaan Transparansi APBD"])
+        UC16(["Publikasi Berita, Agenda & Galeri"])
+    end
+
+    %% Warga Connections
+    Warga --> UC1
+    Warga --> UC2
+    Warga --> UC3
+    Warga --> UC4
+    Warga --> UC5
+    Warga --> UC6
+    Warga --> UC13
+
+    %% Kasi Pelayanan Connections
+    Kasi --> UC2
+    Kasi --> UC7
+    Kasi --> UC10
+    Kasi --> UC13
+
+    %% Sekretaris Connections
+    Sekdes --> UC2
+    Sekdes --> UC8
+    Sekdes --> UC10
+    Sekdes --> UC11
+    Sekdes --> UC12
+
+    %% Lurah Connections
+    Lurah --> UC2
+    Lurah --> UC9
+    Lurah --> UC10
+    Lurah --> UC15
+
+    %% Admin Connections
+    Admin --> UC2
+    Admin --> UC11
+    Admin --> UC12
+    Admin --> UC14
+    Admin --> UC15
+    Admin --> UC16
+
+    %% Relationships
+    UC3 -.->|<<include>>| UC4
+    UC7 -.->|<<extend penolakan>>| UC3
+    UC8 -.->|<<requires>>| UC7
+    UC9 -.->|<<requires>>| UC8
+    UC10 -.->|<<generated after>>| UC9
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- SECTION 3: ACTIVITY DIAGRAMS -->
+        <!-- ========================================== -->
+        <section id="activity" class="space-y-6 scroll-mt-36 page-break">
+            <div class="border-b border-slate-200 pb-4">
+                <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest block mb-1">Process Modeling</span>
+                <h3 class="text-2xl font-black text-slate-900 tracking-tight flex items-center space-x-2">
+                    <i class="fa-solid fa-network-wired text-emerald-600"></i>
+                    <span>3. Activity Diagrams (Alur Aktivitas Sistem)</span>
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-600 mt-1">
+                    Diagram swimlane aktivitas untuk proses pelayanan persuratan mandiri, verifikasi 3 jenjang, dan validasi QR Code.
+                </p>
+            </div>
+
+            <!-- Activity Diagram 1: Pengajuan & 3-Tier Verification -->
+            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+                <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                    <h4 class="font-bold text-slate-900 text-sm">3.1. Activity Diagram: Pengajuan Surat Mandiri & Otorisasi Berjenjang</h4>
+                    <span class="text-[11px] font-mono bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-lg font-bold">Swimlane: Warga &bull; Kasi &bull; Sekdes &bull; Lurah</span>
+                </div>
+
+                <div class="mermaid">
+flowchart TD
+    subgraph Warga ["Warga / Pemohon"]
+        W1([Mulai]) --> W2[Buka Menu Ajukan Surat]
+        W2 --> W3[Pilih Jenis Surat & Anggota Keluarga]
+        W3 --> W4[Isi Keperluan & Unggah Dokumen Syarat]
+        W4 --> W5[Kirim Permohonan Surat]
+        W5 --> W6[Menerima Kode Token & Pantau Status]
+        W7[Unduh / Cetak Surat Hasil TTE QR] --> W8([Selesai])
+    end
+
+    subgraph Kasi ["Kasi Pelayanan"]
+        K1[Notifikasi Permohonan Masuk]
+        K2{Periksa Berkas & Syarat Valid?}
+        K3[Tolak Berkas & Input Alasan]
+        K4[Verifikasi Berkas & Teruskan ke Sekdes]
+    end
+
+    subgraph Sekdes ["Sekretaris Kelurahan"]
+        S1[Notifikasi Berkas Lolos Kasi]
+        S2[Pemeriksaan Draft Surat]
+        S3[Beri Paraf & Terbitkan Nomor Surat Resmi]
+    end
+
+    subgraph Lurah ["Kepala Kelurahan (Lurah)"]
+        L1[Notifikasi Surat Siap Pengesahan]
+        L2{Setujui & Tanda Tangan?}
+        L3[Tolak / Minta Revisi]
+        L4[Sahkan Surat Secara Digital / TTE]
+        L5[Sistem Terbitkan Token Hash & QR Code Sah]
+    end
+
+    W5 --> K1
+    K1 --> K2
+    K2 -- Tidak Lengkap --> K3
+    K3 --> W6
+    K2 -- Valid & Lengkap --> K4
+    K4 --> S1
+    S1 --> S2
+    S2 --> S3
+    S3 --> L1
+    L1 --> L2
+    L2 -- Tidak --> L3
+    L3 --> S2
+    L2 -- Ya --> L4
+    L4 --> L5
+    L5 --> W7
+                </div>
+            </div>
+
+            <!-- Activity Diagram 2: Verifikasi QR Code -->
+            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+                <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                    <h4 class="font-bold text-slate-900 text-sm">3.2. Activity Diagram: Pindai & Verifikasi Keaslian Dokumen via QR Code</h4>
+                    <span class="text-[11px] font-mono bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-lg font-bold">Public Verification</span>
+                </div>
+
+                <div class="mermaid">
+flowchart TD
+    P1([Mulai: Publik / Pihak Ketiga]) --> P2[Scan QR Code pada Lembar Cetak Surat]
+    P2 --> P3[Kamera membaca URL: /verifikasi-surat/{token}]
+    P3 --> P4[Sistem melakukan query ke Tabel permohonan_surat berdasarkan token_qr]
+    P4 --> P5{Data Ditemukan & Status == 'selesai'?}
+    P5 -- Ya --> P6[Tampilkan Laman Status: SURAT ASLI & TERVERIFIKASI]
+    P6 --> P7[Tampilkan Rincian: No Surat, Nama Pemohon, NIK Sensor, Tanggal Sah & Pejabat]
+    P5 -- Tidak --> P8[Tampilkan Peringatan: DOKUMEN TIDAK VALID / PALSU]
+    P7 --> P9([Selesai])
+    P8 --> P9
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- SECTION 4: FLOWCHARTS SISTEM -->
+        <!-- ========================================== -->
+        <section id="flowchart" class="space-y-6 scroll-mt-36 page-break">
+            <div class="border-b border-slate-200 pb-4">
+                <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest block mb-1">System Logic</span>
+                <h3 class="text-2xl font-black text-slate-900 tracking-tight flex items-center space-x-2">
+                    <i class="fa-solid fa-arrow-progress text-emerald-600"></i>
+                    <span>4. Flowcharts Logika Sistem</span>
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-600 mt-1">
+                    Bagan alir logika program untuk modul registrasi validasi NIK, pemrosesan persuratan, dan mutasi kependudukan.
+                </p>
+            </div>
+
+            <!-- Flowchart 1: Registrasi & NIK Validator -->
+            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+                <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                    <h4 class="font-bold text-slate-900 text-sm">4.1. Flowchart: Validasi NIK e-KTP dengan Master Database Penduduk</h4>
+                    <span class="text-[11px] font-mono bg-amber-50 text-amber-700 px-2.5 py-1 rounded-lg font-bold">Security Integrity Check</span>
+                </div>
+
+                <div class="mermaid">
+flowchart TD
+    Start([Start]) --> Input[Warga Mengisi Form Register: NIK, Nama, Email, Password, No HP]
+    Input --> CekNIKFormat{Panjang NIK == 16 Karakter Angka?}
+    CekNIKFormat -- Tidak --> Err1[Tampilkan Pesan Error: Format NIK Tidak Valid] --> Input
+    CekNIKFormat -- Ya --> QueryMaster[Cari NIK pada Tabel penduduk: status_keberadaan == 'Aktif']
+    QueryMaster --> CekAda{NIK Terdaftar di Database Kelurahan?}
+    CekAda -- Tidak --> Err2[Tolak Pendaftaran: NIK Anda Bukan Warga Notoharjo] --> StopFail([Stop: Gagal])
+    CekAda -- Ya --> CekAkun{NIK Sudah Pernah Terdaftar di Tabel users?}
+    CekAkun -- Ya --> Err3[Tampilkan Pesan: Akun Sudah Ada, Silakan Login] --> StopFail
+    CekAkun -- Tidak --> CekNama{Nama Cocok dengan Arsip Kependudukan?}
+    CekNama -- Tidak Cocok --> Warn[Beri Peringatan Nama Tidak Identik] --> Input
+    CekNama -- Cocok --> InsertUser[Insert Record Baru ke users: role='warga', id_penduduk, password_hash]
+    InsertUser --> AutoLogin[Otomatis Login & Redirect ke /warga/dashboard]
+    AutoLogin --> Success([Stop: Berhasil])
+                </div>
+            </div>
+
+            <!-- Flowchart 2: Mutasi Kependudukan -->
+            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+                <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                    <h4 class="font-bold text-slate-900 text-sm">4.2. Flowchart: Pencatatan Peristiwa Mutasi Kependudukan (Lahir, Meninggal, Pindah)</h4>
+                    <span class="text-[11px] font-mono bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-lg font-bold">Vital Statistics Synchronization</span>
+                </div>
+
+                <div class="mermaid">
+flowchart TD
+    M1([Start: Petugas Administrasi]) --> M2[Pilih Penduduk & Tentukan Jenis Mutasi]
+    M2 --> M3{Pilihan Jenis Mutasi?}
+    
+    M3 -- Kematian --> D1[Input Tgl Kematian, No Surat Kematian, Penyebab]
+    D1 --> D2[Insert Record ke tabel mutasi_penduduk]
+    D2 --> D3[Update penduduk: status_keberadaan = 'Meninggal']
+    D3 --> D4[Nonaktifkan Akun User bila Warga Memiliki Login]
+
+    M3 -- Pindah Keluar --> P1[Input Tgl Pindah, Alamat & Wilayah Tujuan]
+    P1 --> P2[Insert Record ke tabel mutasi_penduduk]
+    P2 --> P3[Update penduduk: status_keberadaan = 'Pindah']
+    P3 --> P4[Nonaktifkan Status Akun Warga]
+
+    M3 -- Kelahiran --> B1[Input Data Bayi Baru: NIK Baru, Nama, Tgl Lahir, Orang Tua]
+    B1 --> B2[Hubungkan ke id_kartu_keluarga Orang Tua]
+    B2 --> B3[Insert Record ke penduduk dengan status 'Aktif']
+    B3 --> B4[Insert Record ke mutasi_penduduk kategori 'Kelahiran']
+
+    D4 --> M_End([Selesai: Database Ter-update Otomatis 3NF])
+    P4 --> M_End
+    B4 --> M_End
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- SECTION 5: SEQUENCE DIAGRAM -->
+        <!-- ========================================== -->
+        <section id="sequence" class="space-y-6 scroll-mt-36 page-break">
+            <div class="border-b border-slate-200 pb-4">
+                <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest block mb-1">Interaction Modeling</span>
+                <h3 class="text-2xl font-black text-slate-900 tracking-tight flex items-center space-x-2">
+                    <i class="fa-solid fa-clock-rotate-left text-emerald-600"></i>
+                    <span>5. Sequence Diagram: Alur Pelayanan Surat</span>
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-600 mt-1">
+                    Diagram urutan interaksi objek Controller, Model Eloquent, dan Database dari pengajuan hingga pengesahan.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+                <div class="mermaid">
+sequenceDiagram
+    autonumber
+    actor Warga as Warga Pemohon
+    participant Web as Browser (Blade View)
+    participant WC as WargaController
+    participant AC as AdminController
+    participant PS as Model PermohonanSurat
+    participant RS as Model RiwayatStatus
+    participant DB as Database (MySQL 3NF)
+    actor Kasi as Kasi Pelayanan
+    actor Sekdes as Sekretaris Kelurahan
+    actor Lurah as Lurah Notoharjo
+
+    Warga->>Web: Input Form Pengajuan & Berkas
+    Web->>WC: POST /warga/surat (FormData)
+    WC->>PS: create(id_pemohon, id_kode_surat, token_qr, status='menunggu_verifikasi')
+    PS->>DB: INSERT into permohonan_surat
+    WC->>RS: create(id_permohonan, status='menunggu_verifikasi')
+    RS->>DB: INSERT into riwayat_status_surat
+    WC-->>Web: Redirect Dashboard + Token QR
+
+    Kasi->>Web: Buka Menu Verifikasi Berkas
+    Web->>AC: POST /admin/surat/{id}/action (action='kasi_terima')
+    AC->>PS: update(status='diverifikasi_kasi', id_kasi_verifikator)
+    PS->>DB: UPDATE permohonan_surat
+    AC->>RS: logActivity('Diverifikasi Kasi Pelayanan')
+    RS->>DB: INSERT into riwayat_status_surat
+
+    Sekdes->>Web: Buka Antrean Paraf Sekdes
+    Web->>AC: POST /admin/surat/{id}/action (action='sekdes_paraf', nomor_surat)
+    AC->>PS: update(status='diparaf_sekretaris', nomor_surat, id_sekretaris)
+    PS->>DB: UPDATE permohonan_surat
+    AC->>RS: logActivity('Diparaf & Dinomori Sekdes')
+    RS->>DB: INSERT into riwayat_status_surat
+
+    Lurah->>Web: Tinjau & Klik 'Tanda Tangan Digital'
+    Web->>AC: POST /admin/surat/{id}/action (action='lurah_setujui')
+    AC->>PS: update(status='selesai', tanggal_selesai=now(), id_lurah)
+    PS->>DB: UPDATE permohonan_surat
+    AC->>RS: logActivity('Disahkan & Ditandatangani Lurah')
+    RS->>DB: INSERT into riwayat_status_surat
+
+    Warga->>Web: Buka Surat Selesai
+    Web->>AC: GET /admin/surat/{id}/cetak
+    AC-->>Web: Render Blade Surat Cetak dengan Kop Resmi & QR Token
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- SECTION 6: STATE MACHINE DIAGRAM -->
+        <!-- ========================================== -->
+        <section id="statemachine" class="space-y-6 scroll-mt-36 page-break">
+            <div class="border-b border-slate-200 pb-4">
+                <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest block mb-1">State Lifecycle</span>
+                <h3 class="text-2xl font-black text-slate-900 tracking-tight flex items-center space-x-2">
+                    <i class="fa-solid fa-traffic-light text-emerald-600"></i>
+                    <span>6. State Machine Diagram: Siklus Hidup Permohonan Surat</span>
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-600 mt-1">
+                    Diagram transisi status dokumen persuratan dari pengajuan hingga pengesahan final atau penolakan.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+                <div class="mermaid">
+stateDiagram-v2
+    [*] --> menunggu_verifikasi : Warga mengirim permohonan surat & syarat
+    
+    menunggu_verifikasi --> diverifikasi_kasi : Kasi Pelayanan menyetujui berkas
+    menunggu_verifikasi --> ditolak : Kasi Pelayanan menolak berkas (alasan input)
+    
+    diverifikasi_kasi --> diparaf_sekretaris : Sekdes menyetujui paraf & beri nomor surat
+    diverifikasi_kasi --> ditolak : Sekdes menolak permohonan
+    
+    diparaf_sekretaris --> selesai : Lurah menandatangani secara digital (TTE)
+    diparaf_sekretaris --> ditolak : Lurah menolak permohonan
+    
+    selesai --> [*] : Surat sah diterbitkan, QR aktif, dapat diunduh/dicetak
+    ditolak --> [*] : Alasan penolakan tampil di portal warga
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- SECTION 7: KAMUS DATA & DEFINISI PRIMARY KEY -->
+        <!-- ========================================== -->
+        <section id="kamusdata" class="space-y-6 scroll-mt-36 page-break">
+            <div class="border-b border-slate-200 pb-4">
+                <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest block mb-1">Data Dictionary & Normalization</span>
+                <h3 class="text-2xl font-black text-slate-900 tracking-tight flex items-center space-x-2">
+                    <i class="fa-solid fa-table-list text-emerald-600"></i>
+                    <span>7. Kamus Data & Spesifikasi Primary Key (1NF - 3NF)</span>
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-600 mt-1">
+                    Daftar seluruh 21 tabel database MySQL dengan Primary Key eksplisit (<code class="font-mono text-emerald-700 font-bold">id_&lt;nama_tabel&gt;</code>), Foreign Key, dan perannya dalam normalisasi 3NF.
+                </p>
+            </div>
+
+            <!-- Tabel Kamus Data Lengkap -->
+            <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs text-slate-600">
+                        <thead class="bg-slate-50 text-slate-800 font-bold border-b border-slate-200 uppercase tracking-wider text-[10px]">
+                            <tr>
+                                <th class="p-4 w-12 text-center">No</th>
+                                <th class="p-4">Nama Tabel</th>
+                                <th class="p-4">Primary Key (Eksplisit)</th>
+                                <th class="p-4">Foreign Keys (Relasi)</th>
+                                <th class="p-4">Atribut Kunci Lainnya</th>
+                                <th class="p-4">Taraf Normalisasi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 font-sans">
+                            <tr class="hover:bg-slate-50/70">
+                                <td class="p-4 text-center font-bold text-slate-400">1</td>
+                                <td class="p-4 font-mono font-bold text-slate-900">wilayah_dusun</td>
+                                <td class="p-4 font-mono font-bold text-emerald-700 bg-emerald-50/60 rounded">id_dusun</td>
+                                <td class="p-4 text-slate-400 italic">-</td>
+                                <td class="p-4">nama_dusun, nama_kadus, kontak</td>
+                                <td class="p-4"><span class="px-2 py-0.5 bg-sky-50 text-sky-700 border border-sky-200 rounded font-bold text-[10px]">3NF Valid</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/70">
+                                <td class="p-4 text-center font-bold text-slate-400">2</td>
+                                <td class="p-4 font-mono font-bold text-slate-900">wilayah_rt</td>
+                                <td class="p-4 font-mono font-bold text-emerald-700 bg-emerald-50/60 rounded">id_rt</td>
+                                <td class="p-4 font-mono text-indigo-700">id_dusun &rarr; wilayah_dusun</td>
+                                <td class="p-4">nomor_rt, nama_ketua_rt</td>
+                                <td class="p-4"><span class="px-2 py-0.5 bg-sky-50 text-sky-700 border border-sky-200 rounded font-bold text-[10px]">3NF Valid</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/70">
+                                <td class="p-4 text-center font-bold text-slate-400">3</td>
+                                <td class="p-4 font-mono font-bold text-slate-900">pendidikan</td>
+                                <td class="p-4 font-mono font-bold text-emerald-700 bg-emerald-50/60 rounded">id_pendidikan</td>
+                                <td class="p-4 text-slate-400 italic">-</td>
+                                <td class="p-4">nama_pendidikan (SD, SMP, SMA, S1)</td>
+                                <td class="p-4"><span class="px-2 py-0.5 bg-sky-50 text-sky-700 border border-sky-200 rounded font-bold text-[10px]">3NF Valid</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/70">
+                                <td class="p-4 text-center font-bold text-slate-400">4</td>
+                                <td class="p-4 font-mono font-bold text-slate-900">pekerjaan</td>
+                                <td class="p-4 font-mono font-bold text-emerald-700 bg-emerald-50/60 rounded">id_pekerjaan</td>
+                                <td class="p-4 text-slate-400 italic">-</td>
+                                <td class="p-4">nama_pekerjaan (Petani, Dagang, dll)</td>
+                                <td class="p-4"><span class="px-2 py-0.5 bg-sky-50 text-sky-700 border border-sky-200 rounded font-bold text-[10px]">3NF Valid</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/70">
+                                <td class="p-4 text-center font-bold text-slate-400">5</td>
+                                <td class="p-4 font-mono font-bold text-slate-900">kartu_keluarga</td>
+                                <td class="p-4 font-mono font-bold text-emerald-700 bg-emerald-50/60 rounded">id_kartu_keluarga</td>
+                                <td class="p-4 font-mono text-indigo-700">id_rt &rarr; wilayah_rt</td>
+                                <td class="p-4">nomor_kk, nama_kepala_keluarga, alamat</td>
+                                <td class="p-4"><span class="px-2 py-0.5 bg-sky-50 text-sky-700 border border-sky-200 rounded font-bold text-[10px]">3NF Valid</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/70">
+                                <td class="p-4 text-center font-bold text-slate-400">6</td>
+                                <td class="p-4 font-mono font-bold text-slate-900">penduduk</td>
+                                <td class="p-4 font-mono font-bold text-emerald-700 bg-emerald-50/60 rounded">id_penduduk</td>
+                                <td class="p-4 font-mono text-indigo-700">id_kartu_keluarga, id_pendidikan, id_pekerjaan</td>
+                                <td class="p-4">nik (unique), nama, tgl_lahir, status_keberadaan</td>
+                                <td class="p-4"><span class="px-2 py-0.5 bg-sky-50 text-sky-700 border border-sky-200 rounded font-bold text-[10px]">3NF Valid</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/70">
+                                <td class="p-4 text-center font-bold text-slate-400">7</td>
+                                <td class="p-4 font-mono font-bold text-slate-900">users</td>
+                                <td class="p-4 font-mono font-bold text-emerald-700 bg-emerald-50/60 rounded">id_user</td>
+                                <td class="p-4 font-mono text-indigo-700">id_penduduk, id_dusun</td>
+                                <td class="p-4">email, password, role, jabatan, no_hp</td>
+                                <td class="p-4"><span class="px-2 py-0.5 bg-sky-50 text-sky-700 border border-sky-200 rounded font-bold text-[10px]">3NF Valid</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/70">
+                                <td class="p-4 text-center font-bold text-slate-400">8</td>
+                                <td class="p-4 font-mono font-bold text-slate-900">mutasi_penduduk</td>
+                                <td class="p-4 font-mono font-bold text-emerald-700 bg-emerald-50/60 rounded">id_mutasi</td>
+                                <td class="p-4 font-mono text-indigo-700">id_penduduk, id_user</td>
+                                <td class="p-4">jenis_mutasi, tanggal_kejadian, no_surat</td>
+                                <td class="p-4"><span class="px-2 py-0.5 bg-sky-50 text-sky-700 border border-sky-200 rounded font-bold text-[10px]">3NF Valid</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/70">
+                                <td class="p-4 text-center font-bold text-slate-400">9</td>
+                                <td class="p-4 font-mono font-bold text-slate-900">kode_surat</td>
+                                <td class="p-4 font-mono font-bold text-emerald-700 bg-emerald-50/60 rounded">id_kode_surat</td>
+                                <td class="p-4 text-slate-400 italic">-</td>
+                                <td class="p-4">kode_klasifikasi, nama_surat, masa_berlaku</td>
+                                <td class="p-4"><span class="px-2 py-0.5 bg-sky-50 text-sky-700 border border-sky-200 rounded font-bold text-[10px]">3NF Valid</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/70">
+                                <td class="p-4 text-center font-bold text-slate-400">10</td>
+                                <td class="p-4 font-mono font-bold text-slate-900">syarat_surat</td>
+                                <td class="p-4 font-mono font-bold text-emerald-700 bg-emerald-50/60 rounded">id_syarat_surat</td>
+                                <td class="p-4 font-mono text-indigo-700">id_kode_surat &rarr; kode_surat</td>
+                                <td class="p-4">nama_syarat, wajib (boolean)</td>
+                                <td class="p-4"><span class="px-2 py-0.5 bg-sky-50 text-sky-700 border border-sky-200 rounded font-bold text-[10px]">3NF Valid</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/70">
+                                <td class="p-4 text-center font-bold text-slate-400">11</td>
+                                <td class="p-4 font-mono font-bold text-slate-900">permohonan_surat</td>
+                                <td class="p-4 font-mono font-bold text-emerald-700 bg-emerald-50/60 rounded">id_permohonan_surat</td>
+                                <td class="p-4 font-mono text-indigo-700">id_pemohon, id_penduduk, id_kode_surat, id_kasi, id_sekretaris, id_lurah</td>
+                                <td class="p-4">nomor_surat, status, token_qr (unique)</td>
+                                <td class="p-4"><span class="px-2 py-0.5 bg-sky-50 text-sky-700 border border-sky-200 rounded font-bold text-[10px]">3NF Valid</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/70">
+                                <td class="p-4 text-center font-bold text-slate-400">12</td>
+                                <td class="p-4 font-mono font-bold text-slate-900">lampiran_permohonan</td>
+                                <td class="p-4 font-mono font-bold text-emerald-700 bg-emerald-50/60 rounded">id_lampiran</td>
+                                <td class="p-4 font-mono text-indigo-700">id_permohonan_surat, id_syarat_surat</td>
+                                <td class="p-4">nama_file, path_file, status_validasi</td>
+                                <td class="p-4"><span class="px-2 py-0.5 bg-sky-50 text-sky-700 border border-sky-200 rounded font-bold text-[10px]">3NF Valid</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/70">
+                                <td class="p-4 text-center font-bold text-slate-400">13</td>
+                                <td class="p-4 font-mono font-bold text-slate-900">riwayat_status_surat</td>
+                                <td class="p-4 font-mono font-bold text-emerald-700 bg-emerald-50/60 rounded">id_riwayat_surat</td>
+                                <td class="p-4 font-mono text-indigo-700">id_permohonan_surat, id_user</td>
+                                <td class="p-4">status, catatan audit log</td>
+                                <td class="p-4"><span class="px-2 py-0.5 bg-sky-50 text-sky-700 border border-sky-200 rounded font-bold text-[10px]">3NF Valid</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/70">
+                                <td class="p-4 text-center font-bold text-slate-400">14</td>
+                                <td class="p-4 font-mono font-bold text-slate-900">surat_masuk</td>
+                                <td class="p-4 font-mono font-bold text-emerald-700 bg-emerald-50/60 rounded">id_surat_masuk</td>
+                                <td class="p-4 font-mono text-indigo-700">id_user_penerima &rarr; users</td>
+                                <td class="p-4">nomor_surat_asal, pengirim, perihal, arsip</td>
+                                <td class="p-4"><span class="px-2 py-0.5 bg-sky-50 text-sky-700 border border-sky-200 rounded font-bold text-[10px]">3NF Valid</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/70">
+                                <td class="p-4 text-center font-bold text-slate-400">15</td>
+                                <td class="p-4 font-mono font-bold text-slate-900">potensi_kelurahan</td>
+                                <td class="p-4 font-mono font-bold text-emerald-700 bg-emerald-50/60 rounded">id_potensi</td>
+                                <td class="p-4 font-mono text-indigo-700">id_dusun, id_user</td>
+                                <td class="p-4">nama_potensi, kategori, pemilik, kontak</td>
+                                <td class="p-4"><span class="px-2 py-0.5 bg-sky-50 text-sky-700 border border-sky-200 rounded font-bold text-[10px]">3NF Valid</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/70">
+                                <td class="p-4 text-center font-bold text-slate-400">16</td>
+                                <td class="p-4 font-mono font-bold text-slate-900">transparansi_anggaran</td>
+                                <td class="p-4 font-mono font-bold text-emerald-700 bg-emerald-50/60 rounded">id_anggaran</td>
+                                <td class="p-4 font-mono text-indigo-700">id_user &rarr; users</td>
+                                <td class="p-4">tahun, jenis (Pendapatan/Belanja), target, realisasi</td>
+                                <td class="p-4"><span class="px-2 py-0.5 bg-sky-50 text-sky-700 border border-sky-200 rounded font-bold text-[10px]">3NF Valid</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/70">
+                                <td class="p-4 text-center font-bold text-slate-400">17</td>
+                                <td class="p-4 font-mono font-bold text-slate-900">berita</td>
+                                <td class="p-4 font-mono font-bold text-emerald-700 bg-emerald-50/60 rounded">id_berita</td>
+                                <td class="p-4 font-mono text-indigo-700">id_user &rarr; users</td>
+                                <td class="p-4">judul, slug, ringkasan, isi, status</td>
+                                <td class="p-4"><span class="px-2 py-0.5 bg-sky-50 text-sky-700 border border-sky-200 rounded font-bold text-[10px]">3NF Valid</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/70">
+                                <td class="p-4 text-center font-bold text-slate-400">18</td>
+                                <td class="p-4 font-mono font-bold text-slate-900">agenda</td>
+                                <td class="p-4 font-mono font-bold text-emerald-700 bg-emerald-50/60 rounded">id_agenda</td>
+                                <td class="p-4 font-mono text-indigo-700">id_user &rarr; users</td>
+                                <td class="p-4">nama_kegiatan, lokasi, tgl_mulai, penyelenggara</td>
+                                <td class="p-4"><span class="px-2 py-0.5 bg-sky-50 text-sky-700 border border-sky-200 rounded font-bold text-[10px]">3NF Valid</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/70">
+                                <td class="p-4 text-center font-bold text-slate-400">19</td>
+                                <td class="p-4 font-mono font-bold text-slate-900">galeri</td>
+                                <td class="p-4 font-mono font-bold text-emerald-700 bg-emerald-50/60 rounded">id_galeri</td>
+                                <td class="p-4 font-mono text-indigo-700">id_user &rarr; users</td>
+                                <td class="p-4">judul, file_media, jenis_media</td>
+                                <td class="p-4"><span class="px-2 py-0.5 bg-sky-50 text-sky-700 border border-sky-200 rounded font-bold text-[10px]">3NF Valid</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/70">
+                                <td class="p-4 text-center font-bold text-slate-400">20</td>
+                                <td class="p-4 font-mono font-bold text-slate-900">layanan_pengaduan</td>
+                                <td class="p-4 font-mono font-bold text-emerald-700 bg-emerald-50/60 rounded">id_pengaduan</td>
+                                <td class="p-4 font-mono text-indigo-700">id_pelapor, id_dusun</td>
+                                <td class="p-4">judul, isi, status, tanggapan, tgl_tanggapan</td>
+                                <td class="p-4"><span class="px-2 py-0.5 bg-sky-50 text-sky-700 border border-sky-200 rounded font-bold text-[10px]">3NF Valid</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/70">
+                                <td class="p-4 text-center font-bold text-slate-400">21</td>
+                                <td class="p-4 font-mono font-bold text-slate-900">notifikasi</td>
+                                <td class="p-4 font-mono font-bold text-emerald-700 bg-emerald-50/60 rounded">id_notifikasi</td>
+                                <td class="p-4 font-mono text-indigo-700">id_user &rarr; users</td>
+                                <td class="p-4">judul, pesan, link, dibaca (boolean)</td>
+                                <td class="p-4"><span class="px-2 py-0.5 bg-sky-50 text-sky-700 border border-sky-200 rounded font-bold text-[10px]">3NF Valid</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Documentation Info -->
+        <footer class="pt-8 border-t border-slate-200 text-center text-xs text-slate-500 space-y-2">
+            <p class="font-bold text-slate-700">
+                Pemerintah Kelurahan Notoharjo, Kecamatan Trimurjo, Kabupaten Lampung Tengah
+            </p>
+            <p>
+                Dokumentasi Rekayasa Perangkat Lunak untuk Keperluan Skripsi / Laporan Penelitian Sistem Informasi Pelayanan Administrasi Berbasis Web.
+            </p>
+            <p class="text-[11px] font-mono text-slate-400">
+                Generated based on Laravel 12 Architecture &bull; MySQL Relational Engine &bull; 1NF-3NF Normalized
+            </p>
+        </footer>
+
+    </main>
+
+</body>
+</html>
+
