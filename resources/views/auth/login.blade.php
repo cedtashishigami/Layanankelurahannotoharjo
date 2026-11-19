@@ -136,9 +136,10 @@
     <div class="relative z-10 w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-0 shadow-2xl rounded-3xl overflow-hidden min-h-[600px]">
 
         <!-- === LEFT PANEL: Branding === -->
-        <div class="relative bg-gradient-to-br from-primary-800 via-primary-900 to-slate-900 flex flex-col items-center justify-center p-10 text-white text-center space-y-6 hidden lg:flex">
-            <!-- Subtle inner pattern -->
-            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(rgba(255,255,255,0.3) 1px, transparent 1px); background-size: 20px 20px;"></div>
+        <div class="relative flex flex-col items-center justify-center p-10 text-white text-center space-y-6 hidden lg:flex overflow-hidden"
+             style="background: url('{{ asset('kantor-notoharjo.jpg') }}') center center / cover no-repeat;">
+            <!-- Dark overlay agar teks tetap terbaca -->
+            <div class="absolute inset-0 bg-gradient-to-br from-primary-900/80 via-primary-800/70 to-slate-900/80"></div>
 
             <!-- Yellow top accent bar -->
             <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400"></div>
@@ -297,40 +298,6 @@
                     <span>Masuk ke Sistem</span>
                 </button>
             </form>
-
-            <!-- Divider -->
-            <div class="relative">
-                <div class="absolute inset-0 flex items-center">
-                    <div class="w-full border-t border-slate-200"></div>
-                </div>
-                <div class="relative flex justify-center text-[11px]">
-                    <span class="px-3 bg-white text-slate-400 font-medium">Akun Demo Pengujian (password: <code class="font-mono bg-slate-100 px-1 rounded">password</code>)</span>
-                </div>
-            </div>
-
-            <!-- Demo Accounts -->
-            <div class="grid grid-cols-2 gap-2 text-[11px]">
-                @foreach([
-                    ['icon' => 'fa-user-tie', 'color' => 'emerald', 'role' => 'Lurah', 'email' => 'lurah@notoharjo.desa.id'],
-                    ['icon' => 'fa-user-shield', 'color' => 'sky', 'role' => 'Sekretaris', 'email' => 'sekretaris@notoharjo.desa.id'],
-                    ['icon' => 'fa-user-gear', 'color' => 'indigo', 'role' => 'Kasi Pelayanan', 'email' => 'pelayanan@notoharjo.desa.id'],
-                    ['icon' => 'fa-user', 'color' => 'amber', 'role' => 'Warga', 'email' => 'cetta@gmail.com'],
-                ] as $demo)
-                <button type="button"
-                    onclick="document.getElementById('login').value='{{ $demo['email'] }}'; document.getElementById('password').value='password';"
-                    class="p-2.5 bg-slate-50 hover:bg-{{ $demo['color'] }}-50 border border-slate-200 hover:border-{{ $demo['color'] }}-200 rounded-xl text-left transition group">
-                    <div class="flex items-center space-x-2">
-                        <div class="w-7 h-7 bg-{{ $demo['color'] }}-100 rounded-lg flex items-center justify-center shrink-0">
-                            <i class="{{ $demo['icon'] }} text-{{ $demo['color'] }}-600 text-[11px]"></i>
-                        </div>
-                        <div>
-                            <p class="font-bold text-slate-800 text-[10px]">{{ $demo['role'] }}</p>
-                            <p class="text-slate-400 text-[9px] truncate max-w-[90px]">{{ $demo['email'] }}</p>
-                        </div>
-                    </div>
-                </button>
-                @endforeach
-            </div>
 
             <!-- Back to Home -->
             <div class="text-center pt-1">
