@@ -134,8 +134,11 @@
     <div class="relative z-10 w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-0 shadow-2xl rounded-3xl overflow-hidden min-h-[600px]">
 
         <!-- === LEFT PANEL: Branding === -->
-        <div class="relative bg-gradient-to-br from-primary-800 via-primary-900 to-slate-900 flex flex-col items-center justify-center p-10 text-white text-center space-y-6 hidden lg:flex">
-            <!-- Subtle inner pattern -->
+        <div class="relative flex flex-col items-center justify-center p-10 text-white text-center space-y-6 hidden lg:flex overflow-hidden"
+             style="background: url('{{ asset('kantor-notoharjo.jpg') }}') center center / cover no-repeat;">
+            <!-- Green overlay kuat agar panel tampak hijau -->
+            <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(20,83,45,0.92) 0%, rgba(22,101,52,0.88) 50%, rgba(15,56,34,0.95) 100%);"></div>
+            <!-- Subtle dot pattern -->
             <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(rgba(255,255,255,0.3) 1px, transparent 1px); background-size: 20px 20px;"></div>
 
             <!-- Yellow top accent bar -->
